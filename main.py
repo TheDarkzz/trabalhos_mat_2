@@ -45,8 +45,11 @@ def main():
     elif acao == 'G':
         result = calc.gauss()
         print(result)
-    else:
-        print("Opção não existente")
+    elif acao == 'S':
+        result = calc.solve()
+        print(result)
+
+    
 
 if __name__ == "__main__":
     main()
