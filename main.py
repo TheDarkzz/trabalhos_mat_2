@@ -1,5 +1,6 @@
-from matriz import Matriz
+from Matriz import Matriz
 from calculos import Calculos
+
 
 def main():
     linhas = int(input("Digite o número de linhas: "))
@@ -9,7 +10,7 @@ def main():
     matriz1 = Matriz(linhas, colunas)
     matriz2 = Matriz(linhas, colunas)
 
-    # Preenchendo as matrizes com valores do usuário
+    # Preenchendo as matrizes com valores do usuário2
     print("Preencha a primeira matriz:")
     matriz1.preencher_matriz_com_input()
 
@@ -25,7 +26,7 @@ def main():
     print("\nSegunda Matriz preenchida:")
     print(matriz2)
 
-    acao = input("Digite a ação (+ para soma, * para multiplicação): ")
+    acao = input("Digite a ação (+ para soma, * para multiplicação, D para dot, T para transpose, G para Gaus): ")
     
     if acao == '+':
         result = calc.soma()
@@ -35,8 +36,17 @@ def main():
         result = calc.multiplicacao()
         print("Resultado da multiplicação:")
         print(result)
+    elif (acao == 'T'):
+        result = calc.transpose()
+        print(result)
+    elif acao == 'D':
+        result = calc.dot()
+        print(result)
+    elif acao == 'G':
+        result = calc.gauss()
+        print(result)
     else:
-        print("Ação não reconhecida.")
+        print("Opção não existente")
 
 if __name__ == "__main__":
     main()
