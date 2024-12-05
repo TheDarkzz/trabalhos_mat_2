@@ -1,9 +1,8 @@
 import numpy as np
-from Calculos3 import Calculos3
+from Calculos import Calculos3
 
 
 class Resolucao:
-    
     
     
     def __init__(self, matriz):
@@ -22,27 +21,35 @@ class Resolucao:
         graus = [sum(self.matriz[i]) for i in range(n)]
         conexoes = [(i, j) for i in range(n) for j in range(n) if self.matriz[i][j] != 0]
 
+        matriz_transposta = self.calculo.transposta(self.matriz)
+        n = len(matriz_transposta)
+        autoridade = [sum(matriz_transposta[i]) for i in range(n)]
+
+
         return {
-            "graus": graus,
-            "total_arestas": sum(graus) // 2,
-            "conexoes": conexoes,
+            "vetor centro inicial": graus,
+            "vetor autoridade inicial": autoridade
         }
 
     def calcular_hub_autoridade(self, iteracoes=100, tol=1e-6):
-        """
-        Calcula os vetores de hub e autoridade usando o algoritmo HITS, sem bibliotecas externas.
-        """
-        
         n = len(self.matriz)
+        hub = [sum(self.matriz[i]) for i in range(n)]
+        conexoes = [(i, j) for i in range(n) for j in range(n) if self.matriz[i][j] != 0]
 
-        # Inicializando os vetores
-        autoridade = [1.0] * n
-        hub = [1.0] * n
+        matriz_transposta = self.calculo.transposta(self.matriz)
+        n = len(matriz_transposta)
+        autoridade = [sum(matriz_transposta[i]) for i in range(n)]
 
-        matriz_transposta = self.calculo.transposta(self.matriz) #ERRO-------------------------
+        matriz_1 = self.matriz
+        colunas = [[linha[i] for linha in self.matriz] for i in range(len(self.matriz[0]))]
+        print("Colunas: ",colunas)
+
+        for i in range(len(autoridade)):
+            a0 = self.calculo.multiplicacao(colunas, autoridade)
 
         for _ in range(iteracoes):
-            # Calcula o novo vetor de autoridade
+
+
             nova_autoridade = self.calculo.multiplicacao(matriz_transposta, hub)
             # Calcula o novo vetor de hub
             nova_hub = self.calculo.multiplicacao(self.matriz, autoridade)
@@ -55,7 +62,13 @@ class Resolucao:
             
             autoridade, hub = nova_autoridade, nova_hub
 
-        return autoridade, hub
+        return autoridade, hub, a0
+    
+    def calcular_norma(self):
+
+        matriz = np.array(self)
+
+        return np.sqrt(np.sum(self**2))
 
 
     def ordenar_nos(self, vetor):
