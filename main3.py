@@ -1,33 +1,33 @@
-from resolucao import Resolucao
+from Resolucao import Resolucao
 def main():
     matriz = [
-        [0, 1, 1, 0],
-        [0, 0, 1, 1],
-        [1, 0, 0, 1],
-        [0, 0, 1, 0],
+        [0, 1, 1, 1, 0],
+        [1, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1],
+        [0, 1, 0, 0, 0],
+        [0, 1, 1, 0, 0],
     ]
 
-    res = Resolucao()
+    res = Resolucao(matriz)
 
-
-
-    # 1. Análise da matriz de adjacência
-    resultado = res.analisar_matriz_adjacencia(matriz)
+    resultado = res.analisar_matriz_adjacencia()
     print("Análise da matriz de adjacência:", resultado)
+    print("=======================================")
 
-    # 2. Cálculo de hubs e autoridades
-    autoridade, hub = res.calcular_hub_autoridade(matriz)
+    autoridade, hub, a0 = res.calcular_hub_autoridade()
+    
     print("Autoridade:", autoridade)
-    print("Hub:", hub)
+    print("Centro:", hub)
+    print("a0:", a0)
 
-    # 3. Ordenar os nós
+    print("=======================================")
     autoridade_ordenada = res.ordenar_nos(autoridade)
     hub_ordenado = res.ordenar_nos(hub)
-    print("Nós ordenados por autoridade:", autoridade_ordenada)
-    print("Nós ordenados por hub:", hub_ordenado)
+    print("Ordenada por autoridade:", autoridade_ordenada)
+    print("Ordenada por centro:", hub_ordenado)
+    print("PAULO RICRADO MELHOR PROFESSOR<3")
     
     
-    
-    
+ 
 if __name__ == "__main__":
     main()
